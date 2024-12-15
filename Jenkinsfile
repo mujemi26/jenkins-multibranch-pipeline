@@ -45,7 +45,7 @@ pipeline {
                     withCredentials([file(credentialsId: 'kind-kubeconfig', variable: 'KUBECONFIG')]) {
                         def dockerImage = "mujimmy/sample-app:${env.BRANCH_NAME}"
                         sh "export KUBECONFIG=${KUBECONFIG}"
-                        sh "kubectl set image deployment/sample-app sample-app=${dockerImage} --namespace=${namespace}"
+                        sh "kubectl apply -f deployment.yaml --namespace=${namespace}"
                         sh "kubectl apply -f service.yaml --namespace=${namespace}"
                     }
                 }
